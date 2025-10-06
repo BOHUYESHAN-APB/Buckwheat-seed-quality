@@ -151,6 +151,13 @@ class MainActivity : AppCompatActivity() {
             SettingsActivity.open(this)
         }
 
+        // add press-scale animation for tactile feedback
+        binding.buttonSettings.enablePressScale(this)
+        binding.buttonPhotoManager.enablePressScale(this)
+        binding.buttonModeToggle.enablePressScale(this)
+        binding.buttonShutter.enablePressScale(this)
+        binding.checkboxEmoji.enablePressScale(this)
+
         // Long-press settings: copy/share latest ONNX input dump for easier retrieval when ADB is limited
         binding.buttonSettings.setOnLongClickListener {
             lifecycleScope.launch {
