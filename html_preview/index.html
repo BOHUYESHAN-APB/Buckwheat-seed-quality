@@ -1,0 +1,1166 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Buckwheat Seed Quality Detection · 文档预览</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.2.0/github-markdown-light.min.css"
+      integrity="sha512-bm684OXnsiNuQSyrxuuwo4PHqr3OzxPpXyhT66DA/fhl73e1JmBxRKGnO/nRwWvOZxJLRCmNH7FII+Yn1JNPmg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <style>
+      :root {
+        color-scheme: light;
+        --page-width: min(1180px, calc(100% - 48px));
+        --gutter: clamp(16px, 5vw, 48px);
+        --radius-xl: 32px;
+        --radius-lg: 24px;
+        --radius-md: 16px;
+        --radius-sm: 12px;
+        --shadow-elevated: 0 28px 70px rgba(22, 32, 58, 0.18);
+        --shadow-soft: 0 18px 45px rgba(31, 41, 55, 0.16);
+        --bg-surface: rgba(255, 255, 255, 0.85);
+        --bg-muted: rgba(255, 255, 255, 0.68);
+        --border-color: rgba(148, 163, 184, 0.24);
+        --text-primary: #0f172a;
+        --text-secondary: #374151;
+        --text-muted: #64748b;
+        --accent: #4f46e5;
+        --accent-soft: rgba(79, 70, 229, 0.12);
+        --success: #16a34a;
+        --error: #dc2626;
+      }
+
+      @media (prefers-color-scheme: dark) {
+        :root {
+          color-scheme: dark;
+          --bg-surface: rgba(15, 23, 42, 0.85);
+          --bg-muted: rgba(15, 23, 42, 0.7);
+          --border-color: rgba(148, 163, 184, 0.28);
+          --text-primary: #f8fafc;
+          --text-secondary: #cbd5f5;
+          --text-muted: #94a3b8;
+          --accent: #6366f1;
+          --accent-soft: rgba(99, 102, 241, 0.22);
+        }
+
+        .table-wrapper {
+          background: rgba(15, 23, 42, 0.72);
+          border-color: rgba(148, 163, 184, 0.35);
+        }
+
+        .markdown-body table th,
+        .markdown-body table td {
+          border-color: rgba(148, 163, 184, 0.28);
+          background: rgba(30, 41, 59, 0.78);
+          color: #e2e8f0;
+        }
+
+        .markdown-body table th {
+          background: rgba(99, 102, 241, 0.32);
+          color: #f8fafc;
+        }
+
+        .markdown-body table tbody tr:nth-child(even) td {
+          background: rgba(45, 55, 72, 0.78);
+        }
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        font-family: "Inter", "Segoe UI", "Helvetica Neue", Arial, "PingFang SC", "Microsoft YaHei", sans-serif;
+        color: var(--text-primary);
+        background: radial-gradient(circle at 20% 20%, rgba(99, 102, 241, 0.2), transparent 58%),
+          radial-gradient(circle at 80% 10%, rgba(56, 189, 248, 0.2), transparent 56%),
+          radial-gradient(circle at 15% 80%, rgba(251, 113, 133, 0.2), transparent 52%),
+          linear-gradient(140deg, #f6f7ff 0%, #edf7ff 45%, #fdf3ff 100%);
+        position: relative;
+        padding: clamp(32px, 8vh, 72px) 0;
+      }
+
+      body::after {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background: radial-gradient(80% 120% at 120% -20%, rgba(255, 255, 255, 0.65), transparent 70%);
+        pointer-events: none;
+        z-index: -1;
+      }
+
+      .skip-link {
+        position: absolute;
+        left: -999px;
+        top: 12px;
+        background: var(--accent);
+        color: #fff;
+        padding: 10px 16px;
+        border-radius: var(--radius-sm);
+        transition: transform 0.2s ease;
+        z-index: 999;
+      }
+
+      .skip-link:focus {
+        left: 12px;
+        transform: translateY(4px);
+      }
+
+      .layout-shell {
+        width: var(--page-width);
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        gap: clamp(32px, 6vh, 56px);
+      }
+
+      .masthead {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 320px);
+        gap: clamp(24px, 4vw, 48px);
+        padding: clamp(32px, 5vw, 52px);
+        background: var(--bg-surface);
+        border-radius: var(--radius-xl);
+        border: 1px solid var(--border-color);
+        box-shadow: var(--shadow-elevated);
+        backdrop-filter: blur(20px);
+      }
+
+      .masthead__title h1 {
+        margin: 12px 0 16px;
+        font-size: clamp(2rem, 4vw, 2.75rem);
+        line-height: 1.12;
+      }
+
+      .masthead__title p {
+        margin: 0;
+        color: var(--text-secondary);
+        font-size: clamp(1rem, 1.4vw, 1.1rem);
+      }
+
+      .masthead__pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 14px;
+        border-radius: 999px;
+        background: var(--accent-soft);
+        color: var(--accent);
+        font-size: 0.92rem;
+        font-weight: 600;
+      }
+
+      .masthead__meta {
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+      }
+
+      .masthead__meta-row {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        color: var(--text-muted);
+        font-size: 0.95rem;
+      }
+
+      .masthead__meta-row strong {
+        color: var(--text-secondary);
+        font-weight: 600;
+      }
+
+      .masthead__actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        padding: 12px 20px;
+        border-radius: 12px;
+        border: 1px solid transparent;
+        font-size: 0.98rem;
+        font-weight: 600;
+        cursor: pointer;
+        text-decoration: none;
+        transition: transform 0.25s ease, box-shadow 0.25s ease, border 0.25s ease;
+      }
+
+      .btn:hover {
+        transform: translateY(-2px);
+      }
+
+      .btn--primary {
+        background: linear-gradient(135deg, #6366f1, #2563eb);
+        color: #fff;
+        box-shadow: 0 18px 32px rgba(79, 70, 229, 0.35);
+      }
+
+      .btn--primary:hover {
+        box-shadow: 0 20px 40px rgba(79, 70, 229, 0.42);
+      }
+
+      .btn--ghost {
+        background: var(--bg-muted);
+        border-color: var(--border-color);
+        color: var(--text-secondary);
+      }
+
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        align-self: flex-start;
+        padding: 6px 12px;
+        border-radius: 999px;
+        background: var(--accent-soft);
+        color: var(--accent);
+        font-size: 0.9rem;
+        font-weight: 600;
+        transition: background 0.3s ease, color 0.3s ease;
+      }
+
+      .badge__dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 999px;
+        background: var(--accent);
+        position: relative;
+      }
+
+      .badge[data-state="loading"] .badge__dot {
+        background: #f59e0b;
+        animation: pulse 1.4s infinite;
+      }
+
+      .badge[data-state="success"] {
+        background: rgba(22, 163, 74, 0.14);
+        color: var(--success);
+      }
+
+      .badge[data-state="success"] .badge__dot {
+        background: var(--success);
+      }
+
+      .badge[data-state="error"] {
+        background: rgba(220, 38, 38, 0.16);
+        color: var(--error);
+      }
+
+      .badge[data-state="error"] .badge__dot {
+        background: var(--error);
+      }
+
+      .layout-grid {
+        display: grid;
+        grid-template-columns: minmax(240px, 290px) minmax(0, 1fr);
+        gap: clamp(24px, 4vw, 40px);
+      }
+
+      .toc-card {
+        position: sticky;
+        top: clamp(80px, 12vh, 140px);
+        align-self: start;
+        padding: 24px 20px 28px;
+        border-radius: var(--radius-lg);
+        background: var(--bg-muted);
+        border: 1px solid var(--border-color);
+        box-shadow: var(--shadow-soft);
+        backdrop-filter: blur(16px);
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+      }
+
+      .toc-header {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 12px;
+      }
+
+      .toc-title {
+        font-weight: 700;
+        color: var(--text-secondary);
+      }
+
+      .toc-subtitle {
+        display: block;
+        font-size: 0.85rem;
+        color: var(--text-muted);
+      }
+
+      .toc-toggle {
+        flex-shrink: 0;
+        width: 34px;
+        height: 34px;
+        border-radius: 999px;
+        border: 1px solid var(--border-color);
+        background: transparent;
+        color: var(--text-muted);
+        cursor: pointer;
+      }
+
+      .toc-body {
+        display: grid;
+        gap: 10px;
+        transition: max-height 0.3s ease;
+      }
+
+      .toc-body.is-collapsed {
+        max-height: 0;
+        overflow: hidden;
+      }
+
+      .toc-link {
+        display: block;
+        padding: 10px 14px;
+        border-radius: 12px;
+        font-size: 0.92rem;
+        color: var(--text-muted);
+        text-decoration: none;
+        border: 1px solid transparent;
+        transition: background 0.25s ease, border 0.25s ease, color 0.25s ease;
+      }
+
+      .toc-link[data-level="1"] {
+        font-weight: 700;
+      }
+
+      .toc-link[data-level="2"] {
+        padding-left: 22px;
+      }
+
+      .toc-link[data-level="3"] {
+        padding-left: 34px;
+        font-size: 0.88rem;
+      }
+
+      .toc-link:hover {
+        background: rgba(99, 102, 241, 0.12);
+        color: var(--accent);
+      }
+
+      .toc-link.is-active {
+        border-color: var(--accent);
+        background: rgba(99, 102, 241, 0.16);
+        color: var(--accent);
+        font-weight: 600;
+      }
+
+      .toc-empty {
+        margin: 0;
+        color: var(--text-muted);
+        font-size: 0.9rem;
+      }
+
+      .doc-card {
+        position: relative;
+        padding: clamp(32px, 5vw, 48px);
+        border-radius: var(--radius-xl);
+        background: var(--bg-surface);
+        border: 1px solid var(--border-color);
+        box-shadow: var(--shadow-elevated);
+        backdrop-filter: blur(18px);
+        min-height: 320px;
+      }
+
+      .markdown-body {
+        color: inherit;
+      }
+
+      .markdown-body pre,
+      .markdown-body code {
+        font-family: "JetBrains Mono", "Fira Code", "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+      }
+
+      .markdown-body pre {
+        background: rgba(15, 23, 42, 0.9);
+        color: #e2e8f0;
+        padding: 18px 22px;
+        border-radius: var(--radius-md);
+        border: 1px solid rgba(15, 23, 42, 0.12);
+        overflow: auto;
+      }
+
+      @media (prefers-color-scheme: light) {
+        .markdown-body pre {
+          background: #0f172a;
+          color: #f8fafc;
+        }
+      }
+
+      .markdown-body blockquote {
+        border-left: 4px solid rgba(99, 102, 241, 0.35);
+        background: rgba(99, 102, 241, 0.12);
+        color: var(--text-secondary);
+        padding: 18px 24px;
+        border-radius: var(--radius-md);
+      }
+
+      .markdown-body img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+        margin: 20px auto;
+        border-radius: var(--radius-md);
+        box-shadow: 0 16px 36px rgba(15, 23, 42, 0.22);
+      }
+
+      .markdown-body img[data-asset-error="true"] {
+        border: 2px dashed rgba(99, 102, 241, 0.35);
+        background: rgba(99, 102, 241, 0.12);
+        box-shadow: none;
+      }
+
+      .markdown-body a {
+        position: relative;
+        color: var(--accent);
+        text-decoration: none;
+      }
+
+      .markdown-body a::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: -2px;
+        height: 2px;
+        background: currentColor;
+        opacity: 0.35;
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.25s ease, opacity 0.25s ease;
+      }
+
+      .markdown-body a:hover::after {
+        transform: scaleX(1);
+        opacity: 0.6;
+      }
+
+      .table-wrapper {
+        margin: 24px 0;
+        border-radius: var(--radius-md);
+        border: 1px solid var(--border-color);
+        overflow-x: auto;
+        background: rgba(255, 255, 255, 0.08);
+        box-shadow: 0 20px 60px rgba(15, 23, 42, 0.12);
+      }
+
+      .markdown-body table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.95rem;
+        color: var(--text-secondary);
+      }
+
+      .markdown-body table th,
+      .markdown-body table td {
+        padding: 14px 18px;
+        border: 1px solid rgba(148, 163, 184, 0.35);
+        background: rgba(255, 255, 255, 0.92);
+      }
+
+      .markdown-body table th {
+        background: rgba(99, 102, 241, 0.18);
+        color: var(--text-primary);
+        font-weight: 600;
+        letter-spacing: 0.01em;
+      }
+
+      .markdown-body table tbody tr:nth-child(even) td {
+        background: rgba(148, 163, 184, 0.12);
+      }
+
+      .markdown-body table tbody tr:hover td {
+        background: rgba(79, 70, 229, 0.12);
+        color: var(--text-primary);
+      }
+
+      .markdown-body table code {
+        background: rgba(15, 23, 42, 0.08);
+        padding: 2px 6px;
+        border-radius: 6px;
+        color: var(--text-primary);
+        font-size: 0.9em;
+      }
+
+      .heading-anchor {
+        margin-left: 10px;
+        opacity: 0;
+        font-size: 0.85em;
+        color: var(--accent);
+        transition: opacity 0.2s ease;
+      }
+
+      .markdown-body h1:hover .heading-anchor,
+      .markdown-body h2:hover .heading-anchor,
+      .markdown-body h3:hover .heading-anchor,
+      .markdown-body h4:hover .heading-anchor {
+        opacity: 1;
+      }
+
+      .loading-state {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        padding: 28px;
+        border-radius: var(--radius-lg);
+        background: rgba(37, 99, 235, 0.08);
+        color: var(--text-secondary);
+      }
+
+      .loading-state__spinner {
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        border: 4px solid rgba(37, 99, 235, 0.2);
+        border-top-color: #2563eb;
+        animation: spin 1s linear infinite;
+      }
+
+      .loading-state__text strong {
+        display: block;
+        font-size: 1.02rem;
+        margin-bottom: 4px;
+      }
+
+      .page-footer {
+        margin-top: clamp(32px, 6vh, 56px);
+        padding: clamp(28px, 4vw, 40px);
+        border-radius: var(--radius-xl);
+        border: 1px solid var(--border-color);
+        background: var(--bg-muted);
+        color: var(--text-muted);
+        text-align: center;
+        font-size: 0.95rem;
+        box-shadow: var(--shadow-soft);
+        backdrop-filter: blur(16px);
+      }
+
+      .page-footer code {
+        font-size: 0.9rem;
+        padding: 2px 6px;
+        border-radius: 8px;
+        background: rgba(15, 23, 42, 0.12);
+      }
+
+      #back-to-top {
+        position: fixed;
+        right: clamp(18px, 5vw, 48px);
+        bottom: clamp(18px, 8vh, 56px);
+        width: 52px;
+        height: 52px;
+        border-radius: 999px;
+        border: none;
+        background: linear-gradient(135deg, #6366f1, #2563eb);
+        color: #fff;
+        font-size: 1.6rem;
+        box-shadow: 0 18px 36px rgba(79, 70, 229, 0.4);
+        cursor: pointer;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(16px);
+        transition: transform 0.35s ease, opacity 0.35s ease, visibility 0.35s ease;
+        z-index: 50;
+      }
+
+      #back-to-top.is-visible {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+      }
+
+      #back-to-top:hover {
+        transform: translateY(-4px);
+      }
+
+      .toast {
+        position: fixed;
+        left: 50%;
+        bottom: clamp(24px, 6vh, 48px);
+        transform: translate(-50%, 16px);
+        padding: 12px 22px;
+        border-radius: 14px;
+        background: rgba(15, 23, 42, 0.85);
+        color: #f8fafc;
+        font-size: 0.95rem;
+        box-shadow: 0 18px 36px rgba(15, 23, 42, 0.4);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s ease, transform 0.3s ease;
+        z-index: 60;
+      }
+
+      .toast.is-visible {
+        opacity: 1;
+        transform: translate(-50%, 0);
+      }
+
+      .empty-state {
+        text-align: center;
+        padding: 48px 24px;
+        color: var(--text-muted);
+      }
+
+      .empty-state strong {
+        display: block;
+        font-size: 1.1rem;
+        margin-bottom: 12px;
+        color: var(--text-secondary);
+      }
+
+      ::-webkit-scrollbar {
+        width: 10px;
+        height: 10px;
+      }
+
+      ::-webkit-scrollbar-track {
+        background: rgba(148, 163, 184, 0.16);
+      }
+
+      ::-webkit-scrollbar-thumb {
+        background: rgba(99, 102, 241, 0.42);
+        border-radius: 999px;
+      }
+
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          transform: scale(1);
+          opacity: 1;
+        }
+        50% {
+          transform: scale(1.25);
+          opacity: 0.55;
+        }
+      }
+
+      @media (max-width: 1040px) {
+        body {
+          padding-top: clamp(24px, 6vh, 48px);
+        }
+
+        .layout-grid {
+          grid-template-columns: minmax(0, 1fr);
+        }
+
+        .toc-card {
+          position: relative;
+          top: unset;
+          order: -1;
+        }
+      }
+
+      @media (max-width: 880px) {
+        .masthead {
+          grid-template-columns: 1fr;
+        }
+
+        .masthead__actions {
+          width: 100%;
+        }
+
+        .btn {
+          flex: 1 1 45%;
+        }
+      }
+
+      @media (max-width: 640px) {
+        .layout-shell {
+          width: calc(100% - 32px);
+        }
+
+        .doc-card,
+        .masthead,
+        .page-footer {
+          padding: clamp(22px, 6vw, 32px);
+        }
+
+        .toc-card {
+          padding: 20px;
+        }
+
+        #back-to-top {
+
+        .markdown-body table code {
+          background: rgba(148, 163, 184, 0.18);
+          color: #f8fafc;
+        }
+
+        .markdown-body img[data-asset-error="true"] {
+          border-color: rgba(99, 102, 241, 0.55);
+          background: rgba(45, 55, 72, 0.9);
+        }
+          width: 46px;
+          height: 46px;
+        }
+      }
+    </style>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.1/marked.min.js"
+      integrity="sha512-pSeTnZAQF/RHxb0ysMoYQI/BRZsa5XuklcrgFfU3YZIdnD3LvkkqzrIeHxzFi6gKtI8Cpq2DEWdZjMTcNVhUYA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#doc-content">跳过导航，直达正文</a>
+    <div class="layout-shell">
+      <header class="masthead">
+        <div class="masthead__title">
+          <span class="masthead__pill">Buckwheat Seed Quality</span>
+          <h1>荞麦籽质量检测知识库</h1>
+          <p>覆盖训练、部署、日志分析与可视化的全栈指南，实时同步主分支 README。</p>
+        </div>
+        <div class="masthead__meta">
+          <div class="badge" data-state="loading">
+            <span class="badge__dot" aria-hidden="true"></span>
+            <span class="badge__text">正在获取文档…</span>
+          </div>
+    <!-- If you want to override where images are loaded from, set `window.__ASSET_BASE__`
+      or the <html data-asset-base="..."></html> attribute in the hosting page before
+      this script runs. By default production uses the built-in PROD_ASSET_BASE. -->
+          <div class="masthead__meta-row">
+            <span>文档源：<strong>README.md</strong></span>
+            <span>最近同步：<strong data-build>-</strong></span>
+          </div>
+          <div class="masthead__actions">
+            <a
+              class="btn btn--primary"
+              href="https://github.com/BOHUYESHAN-APB/Buckwheat-seed-quality"
+              target="_blank"
+              rel="noopener"
+            >访问仓库</a>
+            <a class="btn btn--ghost" id="download-md" href="#" target="_blank" rel="noopener"
+              >下载 Markdown</a
+            >
+          </div>
+        </div>
+      </header>
+
+      <main class="layout-grid">
+        <aside class="toc-card" id="toc-card">
+          <div class="toc-header">
+            <div>
+              <span class="toc-title">内容导览</span>
+              <span class="toc-subtitle">章节列表会在文档加载后出现</span>
+            </div>
+            <button class="toc-toggle" type="button" aria-expanded="true" aria-controls="toc-body">⮟</button>
+          </div>
+          <div class="toc-body" id="toc-body">
+            <p class="toc-empty">正在收集标题…</p>
+          </div>
+        </aside>
+
+        <article id="doc-content" class="doc-card markdown-body" aria-live="polite">
+          <div class="loading-state" id="loading-state">
+            <span class="loading-state__spinner" aria-hidden="true"></span>
+            <div class="loading-state__text">
+              <strong>加载 README…</strong>
+              <span>稍等一下，文档即将呈现。</span>
+            </div>
+          </div>
+        </article>
+      </main>
+
+      <footer class="page-footer">
+        <p>
+          本页面会在访问时实时抓取 <code>main</code> 分支的 <code>README.md</code>，适合集成到 GitHub Pages、Hexo 或任意静态站点。
+        </p>
+        <p>
+          所有相对链接都已自动补全为仓库地址，图片使用 <code>raw.githubusercontent.com</code>，保证跨站展示正常。
+        </p>
+      </footer>
+    </div>
+
+    <button id="back-to-top" type="button" aria-label="回到顶部">↑</button>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <template id="toc-item-template">
+      <a class="toc-link"></a>
+    </template>
+
+  <!-- removed duplicated default assignment; production base is defined below in JS as PROD_ASSET_BASE -->
+
+    <script>
+      (function () {
+  const README_FILE = "README.md";
+        const REPO_OWNER = "BOHUYESHAN-APB";
+        const REPO_NAME = "Buckwheat-seed-quality";
+        const DEFAULT_BRANCH = "main";
+  const REMOTE_RAW_BASE = `https://raw.githubusercontent.com/${REPO_OWNER}/${REPO_NAME}/${DEFAULT_BRANCH}/`;
+  const REMOTE_BLOB_BASE = `https://github.com/${REPO_OWNER}/${REPO_NAME}/blob/${DEFAULT_BRANCH}/`;
+  const CDN_BASE = `https://cdn.jsdelivr.net/gh/${REPO_OWNER}/${REPO_NAME}@${DEFAULT_BRANCH}/`;
+        // Production asset base: your hosted images path (use this in production).
+        const PROD_ASSET_BASE = 'https://bohuyeshan.top/buckwheat-project/model/img/';
+
+        // Custom asset base (can be set by embedding page) - kept for backward compatibility
+        const CUSTOM_ASSET_BASE = (window.__ASSET_BASE__ || document.documentElement.getAttribute("data-asset-base") || "").trim();
+        let customImageBase = null;
+        if (CUSTOM_ASSET_BASE) {
+          const ensured = CUSTOM_ASSET_BASE.endsWith("/") ? CUSTOM_ASSET_BASE : `${CUSTOM_ASSET_BASE}/`;
+          try {
+            customImageBase = new URL(ensured, window.location.origin).href;
+          } catch (error) {
+            customImageBase = ensured;
+          }
+        }
+        const isLocalhost =
+          location.protocol === "file:" ||
+          ["localhost", "127.0.0.1", "::1"].includes(location.hostname);
+        const LOCAL_BASE = new URL("../", window.location.href).href;
+        const RAW_BASE = isLocalhost ? LOCAL_BASE : REMOTE_RAW_BASE;
+        const BLOB_BASE = isLocalhost ? LOCAL_BASE : REMOTE_BLOB_BASE;
+  // Prefer CDN (jsDelivr) which sets CORS headers for cross-origin fetches from Pages.
+  const README_CDN_URL = isLocalhost ? null : (CDN_BASE + README_FILE);
+  const README_RAW_URL = new URL(README_FILE, RAW_BASE).href;
+  const README_BLOB_URL = new URL(README_FILE, REMOTE_BLOB_BASE).href;
+  const README_DOWNLOAD_URL = README_CDN_URL || README_RAW_URL;
+  let hasShownAssetWarning = false;
+
+        const docContent = document.getElementById("doc-content");
+        const loadingState = document.getElementById("loading-state");
+        const tocBody = document.getElementById("toc-body");
+        const tocTemplate = document.getElementById("toc-item-template");
+        const backToTop = document.getElementById("back-to-top");
+        const toast = document.getElementById("toast");
+        const statusBadge = document.querySelector(".badge");
+        const statusText = statusBadge?.querySelector(".badge__text");
+        const buildTimeNode = document.querySelector("[data-build]");
+        const downloadBtn = document.getElementById("download-md");
+        const tocToggle = document.querySelector(".toc-toggle");
+
+        if (downloadBtn) {
+          downloadBtn.href = README_DOWNLOAD_URL;
+        }
+        if (buildTimeNode) {
+          buildTimeNode.textContent = new Date().toLocaleString("zh-CN", {
+            year: "numeric",
+            month: "2-digit",
+            day: "2-digit",
+          });
+        }
+
+        const statusMap = {
+          loading: { text: "正在获取文档…" },
+          success: { text: "内容已更新" },
+          error: { text: "加载失败，请稍后重试" },
+        };
+
+        function updateStatus(state, message) {
+          const config = statusMap[state] || statusMap.loading;
+          if (statusBadge) {
+            statusBadge.dataset.state = state;
+          }
+          if (statusText) {
+            statusText.textContent = message || config.text;
+          }
+        }
+
+        function showToast(message) {
+          if (!toast) return;
+          toast.textContent = message;
+          toast.classList.add("is-visible");
+          setTimeout(() => {
+            toast.classList.remove("is-visible");
+          }, 2600);
+        }
+
+        function resolveAsset(href, isImage) {
+          if (!href) return href;
+          if (/^(https?:|mailto:|tel:)/i.test(href) || href.startsWith("#")) {
+            return href;
+          }
+
+          // Normalize relative paths
+          const normalized = href.replace(/^\.\//, "").replace(/^\//, "");
+
+          // If this is an image and we have a local deployment asset (for dev), prefer it
+          if (isImage) {
+            try {
+              // Check local deployment_assets by filename
+              const name = normalized.split("/").pop();
+              const localCandidate = new URL(`deployment_assets/${name}`, window.location.href).href;
+              // We can't synchronously test existence without network/fs, but using a relative URL
+              // will work when served from the repo (e.g., python -m http.server) or when
+              // the deployment_assets are included in the Pages repo next to index.html.
+              // Use customImageBase if explicitly provided (overrides everything)
+              if (customImageBase) {
+                return new URL(name, customImageBase).href;
+              }
+
+              // If we're on localhost (dev) prefer localCandidate
+              if (isLocalhost) {
+                return localCandidate;
+              }
+
+              // Production: use the explicit production host base (your site)
+              return new URL(name, PROD_ASSET_BASE).href;
+            } catch (err) {
+              // fallback to raw
+            }
+          }
+
+          // Non-image links: point to repository blob URL
+          try {
+            return new URL(normalized, BLOB_BASE).href;
+          } catch (error) {
+            return BLOB_BASE + normalized;
+          }
+        }
+
+        function buildCdnUrlFromRaw(rawUrl) {
+          try {
+            const url = new URL(rawUrl);
+            if (url.hostname !== "raw.githubusercontent.com") return null;
+            const segments = url.pathname.split("/").filter(Boolean);
+            if (segments.length < 4) return null;
+            const [owner, repo, branch, ...rest] = segments;
+            if (!owner || !repo || !rest.length) return null;
+            if (branch !== DEFAULT_BRANCH) {
+              return `https://cdn.jsdelivr.net/gh/${owner}/${repo}@${branch}/${rest.join("/")}`;
+            }
+            return CDN_BASE + rest.join("/");
+          } catch (error) {
+            return null;
+          }
+        }
+
+        function applyAssetPlaceholder(img) {
+          img.dataset.assetError = "true";
+          const label = img.alt || "资源加载失败";
+          const svg = `<svg xmlns='http://www.w3.org/2000/svg' width='480' height='320' viewBox='0 0 480 320'>` +
+            `<defs><linearGradient id='g' x1='0%' x2='100%' y1='0%' y2='100%'><stop offset='0%' stop-color='#6366f1' stop-opacity='0.75'/><stop offset='100%' stop-color='#0ea5e9' stop-opacity='0.75'/></linearGradient></defs>` +
+            `<rect width='480' height='320' rx='24' fill='url(#g)'/>` +
+            `<g fill='white' font-family='Inter,Segoe UI' text-anchor='middle'>` +
+            `<text x='240' y='168' font-size='28' font-weight='600'>${label.replace(/</g, "&lt;").replace(/>/g, "&gt;")}</text>` +
+            `<text x='240' y='208' font-size='18' opacity='0.75'>请检查仓库权限或资源路径</text>` +
+            `</g></svg>`;
+          img.src = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
+          if (!hasShownAssetWarning) {
+            showToast("部分图片加载失败，请确认仓库已公开或资源路径正确");
+            hasShownAssetWarning = true;
+          }
+        }
+
+        const renderer = new marked.Renderer();
+        const baseImage = renderer.image.bind(renderer);
+        renderer.image = (href, title, text) => {
+          const resolved = resolveAsset(href, true);
+          return baseImage(resolved, title, text);
+        };
+        const baseLink = renderer.link.bind(renderer);
+        renderer.link = (href, title, text) => {
+          const resolved = resolveAsset(href, false);
+          return baseLink(resolved, title, text);
+        };
+
+        marked.setOptions({
+          renderer,
+          gfm: true,
+          breaks: false,
+          headerIds: true,
+          mangle: false,
+        });
+
+        function enhanceContent(container) {
+          container.querySelectorAll("img").forEach((img) => {
+            img.loading = "lazy";
+            img.decoding = "async";
+            img.addEventListener("error", () => {
+              if (img.dataset.assetError === "true") return;
+              const candidate = buildCdnUrlFromRaw(img.currentSrc || img.src);
+              if (candidate && img.dataset.cdnFallback !== "true") {
+                img.dataset.cdnFallback = "true";
+                img.src = candidate;
+                return;
+              }
+              applyAssetPlaceholder(img);
+            });
+          });
+
+          container.querySelectorAll("table").forEach((table) => {
+            if (!table.parentElement.classList.contains("table-wrapper")) {
+              const wrapper = document.createElement("div");
+              wrapper.className = "table-wrapper";
+              table.parentElement.insertBefore(wrapper, table);
+              wrapper.appendChild(table);
+            }
+          });
+
+          container.querySelectorAll("pre code").forEach((block) => {
+            block.setAttribute("tabindex", "0");
+          });
+
+          container.querySelectorAll("a[href]").forEach((link) => {
+            if (/^https?:/i.test(link.href) && !link.href.includes(location.host)) {
+              link.target = "_blank";
+              link.rel = "noopener noreferrer";
+            }
+          });
+
+          container.querySelectorAll("h1, h2, h3, h4").forEach((heading) => {
+            if (!heading.id) {
+              heading.id = heading.textContent
+                .trim()
+                .toLowerCase()
+                .replace(/[^a-z0-9\u4e00-\u9fa5\-\s]/gi, "")
+                .replace(/\s+/g, "-");
+            }
+            if (!heading.querySelector(".heading-anchor")) {
+              const anchor = document.createElement("a");
+              anchor.href = `#${heading.id}`;
+              anchor.className = "heading-anchor";
+              anchor.setAttribute("aria-hidden", "true");
+              anchor.textContent = "¶";
+              heading.appendChild(anchor);
+            }
+          });
+        }
+
+        function buildTOC(container) {
+          const headings = Array.from(container.querySelectorAll("h1, h2, h3")).filter((heading) =>
+            heading.id
+          );
+
+          if (!headings.length) {
+            tocBody.innerHTML =
+              '<p class="toc-empty">未检测到可用标题，请确认 Markdown 中包含一级或二级标题。</p>';
+            return;
+          }
+
+          const fragment = document.createDocumentFragment();
+          headings.forEach((heading) => {
+            const clone = tocTemplate.content.firstElementChild.cloneNode(true);
+            clone.textContent = heading.textContent.replace(/¶$/, "").trim();
+            clone.href = `#${heading.id}`;
+            clone.dataset.level = heading.tagName.slice(1);
+            fragment.appendChild(clone);
+          });
+
+          tocBody.innerHTML = "";
+          tocBody.appendChild(fragment);
+
+          const tocLinks = Array.from(tocBody.querySelectorAll(".toc-link"));
+          const observer = new IntersectionObserver(
+            (entries) => {
+              entries
+                .filter((entry) => entry.isIntersecting)
+                .forEach((entry) => {
+                  const { target } = entry;
+                  tocLinks.forEach((link) => {
+                    link.classList.toggle("is-active", link.hash === `#${target.id}`);
+                  });
+                });
+            },
+            { rootMargin: "-65% 0px -30% 0px", threshold: 0 }
+          );
+
+          headings.forEach((heading) => observer.observe(heading));
+
+          tocLinks.forEach((link) => {
+            link.addEventListener("click", (event) => {
+              event.preventDefault();
+              const target = document.querySelector(decodeURIComponent(link.hash));
+              if (target) {
+                window.scrollTo({
+                  top: target.getBoundingClientRect().top + window.scrollY - 80,
+                  behavior: "smooth",
+                });
+              }
+            });
+          });
+        }
+
+        function toggleBackToTop() {
+          if (!backToTop) return;
+          const shouldShow = window.scrollY > 400;
+          backToTop.classList.toggle("is-visible", shouldShow);
+        }
+
+        if (backToTop) {
+          backToTop.addEventListener("click", () => {
+            window.scrollTo({ top: 0, behavior: "smooth" });
+          });
+        }
+        window.addEventListener("scroll", toggleBackToTop);
+
+        if (tocToggle) {
+          tocToggle.addEventListener("click", () => {
+            const expanded = tocToggle.getAttribute("aria-expanded") === "true";
+            tocToggle.setAttribute("aria-expanded", String(!expanded));
+            tocBody.classList.toggle("is-collapsed", expanded);
+            tocToggle.textContent = expanded ? "⮝" : "⮟";
+          });
+        }
+
+        updateStatus("loading");
+
+  // Try fetching README from multiple sources: CDN first (CORS-friendly), then raw.
+  (async function fetchMarkdown() {
+    const candidates = [];
+    if (README_CDN_URL) candidates.push(README_CDN_URL);
+    candidates.push(README_RAW_URL);
+
+    let lastError = null;
+    for (const url of candidates) {
+      try {
+        const res = await fetch(url, { cache: "no-store" });
+        if (!res.ok) throw new Error(`HTTP ${res.status} for ${url}`);
+        const markdown = await res.text();
+        const html = marked.parse(markdown);
+        docContent.innerHTML = html;
+        enhanceContent(docContent);
+        buildTOC(docContent);
+        updateStatus("success");
+        showToast("README 已同步至最新版本");
+        return;
+      } catch (err) {
+        lastError = err;
+        // try next candidate
+      }
+    }
+
+    // If we reach here, all attempts failed
+    updateStatus("error", "加载失败");
+    docContent.innerHTML = `
+      <div class="empty-state">
+  <strong>无法加载 README.md</strong>
+        <p>错误信息：${lastError ? lastError.message : "未知错误"}</p>
+        <p>您可以稍后重试，或直接访问 <a href="${README_BLOB_URL}" target="_blank" rel="noopener">GitHub 仓库查看原文</a>。</p>
+      </div>
+    `;
+  })()
+    .finally(() => {
+      if (loadingState) {
+        loadingState.remove();
+      }
+      toggleBackToTop();
+    });
+      })();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="topBarBg">#F8F8F8</color>
+    <color name="onTopBar">#212121</color>
+    <color name="bottomBarBg">#FFFFFF</color>
+    <color name="controlIcon">#333333</color>
+    <color name="background">#F2F2F2</color>
+    <color name="onBackground">#212121</color>
+    <color name="onBackgroundSecondary">#666666</color>
+    <color name="onBottomBar">#212121</color>
+    <color name="shutterBg">#FF7043</color> <!-- warm orange -->
+    <color name="overlayBox">#00C853</color> <!-- green accent -->
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="overlay_background">#66000000</color>
+
+    <!-- Compatibility aliases used by generated templates; mapped to neutral shades (not purple) -->
+    <color name="purple_200">#FFBDBDBD</color>
+    <color name="purple_500">#FF9E9E9E</color>
+    <color name="purple_700">#FF616161</color>
+    <color name="teal_200">#FF80CBC4</color>
+    <color name="teal_700">#FF00796B</color>
+</resources>

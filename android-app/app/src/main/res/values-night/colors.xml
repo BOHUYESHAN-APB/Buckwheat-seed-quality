@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="topBarBg">#121212</color>
+    <color name="onTopBar">#FFFFFF</color>
+    <color name="bottomBarBg">#141414</color>
+    <color name="controlIcon">#E0E0E0</color>
+    <color name="background">#0F0F0F</color>
+    <color name="onBackground">#F1F1F1</color>
+    <color name="onBackgroundSecondary">#B0B0B0</color>
+    <color name="onBottomBar">#F1F1F1</color>
+    <color name="shutterBg">#FF8A65</color>
+    <color name="overlayBox">#69F0AE</color>
+</resources>

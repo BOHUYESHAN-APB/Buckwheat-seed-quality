@@ -1,0 +1,16 @@
+_BASE_: [
+  '../PaddleDetection/configs/ppyoloe/../datasets/coco_detection.yml',
+  '../PaddleDetection/configs/ppyoloe/../runtime.yml',
+  '../PaddleDetection/configs/ppyoloe/./_base_/optimizer_80e.yml',
+  '../PaddleDetection/configs/ppyoloe/./_base_/ppyoloe_plus_crn.yml',
+  '../PaddleDetection/configs/ppyoloe/./_base_/ppyoloe_plus_reader.yml',
+]
+
+log_iter: 100
+snapshot_epoch: 5
+weights: output/model_final.pdparams
+
+# clear pretrain_weights to avoid missing-file errors during export
+pretrain_weights: ""
+depth_mult: 0.67
+width_mult: 0.75

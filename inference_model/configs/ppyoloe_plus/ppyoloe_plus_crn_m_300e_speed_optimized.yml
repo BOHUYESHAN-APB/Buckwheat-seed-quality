@@ -1,0 +1,28 @@
+﻿_BASE_: [
+  '../datasets/buckwheat_detection.yml',
+  '../runtime.yml',
+  '../ppyoloe/_base_/optimizer_300e.yml',
+  './_base_/ppyoloe_plus_crn.yml',
+  './_base_/ppyoloe_plus_reader_optimized.yml',  # 浣跨敤浼樺寲鍚庣殑reader閰嶇疆
+]
+
+log_iter: 50
+snapshot_epoch: 10
+# 绉婚櫎weights璁剧疆锛岄伩鍏嶄笌-r鍙傛暟鍐茬獊
+# weights: /root/PaddleDetection/output/149.pdparams
+
+# 娉ㄩ噴鎺夐璁粌鏉冮噸锛岄伩鍏嶅啿绐?# pretrain_weights: https://paddledet.bj.bcebos.com/models/pretrained/CSPResNetb_m_pretrained.pdparams
+depth_mult: 0.67
+width_mult: 0.75
+
+# 鍚敤FP16娣峰悎绮惧害璁粌锛屾彁楂橀€熷害
+fp16: true
+
+# 浼樺寲璁粌璁剧疆
+use_gpu: true
+is_distributed: false
+max_iters: 300
+save_dir: output
+snapshot_epoch: 10
+print_flops: false
+print_params: false

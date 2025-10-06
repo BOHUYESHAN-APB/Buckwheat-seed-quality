@@ -1,0 +1,12 @@
+{
+  "labels": ["seeda", "seedb", "seedc", "seedd"],
+  "num_classes": 4,
+  "input_size": [800, 800],
+  "score_threshold": 0.5,
+  "model_info": {
+    "name": "ppyoloe_plus_crn_m_speed_optimized",
+    "opset_version": 14,
+    "export_date": "2025-10-05",
+    "source": "server_export"
+  }
+}

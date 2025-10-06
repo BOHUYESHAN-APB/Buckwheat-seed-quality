@@ -1,0 +1,1 @@
+{"model": "E:\\CODE\\Buckwheat-seed-quality\\android-app\\app\\src\\main\\assets\\models\\model.onnx", "image": "E:\\CODE\\Buckwheat-seed-quality\\html_preview\\deployment_assets\\test-001.jpg", "input_shape": [1, 3, 640, 640], "scale": 0.1384083044982699, "outputs": [{"index": 0, "shape": [0, 6], "head": []}, {"index": 1, "shape": [1], "head": [0]}]}

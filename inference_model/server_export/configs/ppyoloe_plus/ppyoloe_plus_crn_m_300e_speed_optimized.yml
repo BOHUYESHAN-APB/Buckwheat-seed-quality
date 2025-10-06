@@ -1,0 +1,29 @@
+_BASE_: [
+  '../datasets/buckwheat_detection.yml',
+  '../runtime.yml',
+  '../ppyoloe/_base_/optimizer_300e.yml',
+  './_base_/ppyoloe_plus_crn.yml',
+  './_base_/ppyoloe_plus_reader_optimized.yml',  # 使用优化后的reader配置
+]
+
+log_iter: 50
+snapshot_epoch: 10
+# 移除weights设置，避免与-r参数冲突
+# weights: /root/PaddleDetection/output/149.pdparams
+
+# 注释掉预训练权重，避免冲突
+# pretrain_weights: https://paddledet.bj.bcebos.com/models/pretrained/CSPResNetb_m_pretrained.pdparams
+depth_mult: 0.67
+width_mult: 0.75
+
+# 启用FP16混合精度训练，提高速度
+fp16: true
+
+# 优化训练设置
+use_gpu: true
+is_distributed: false
+max_iters: 300
+save_dir: output
+snapshot_epoch: 10
+print_flops: false
+print_params: false

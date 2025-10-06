@@ -1,0 +1,4 @@
+exports/**/model.onnx
+android-app/buckwheat_model.onnx
+android-app/app/src/main/assets/models/model.onnx
+inference_from_output/**/model.onnx

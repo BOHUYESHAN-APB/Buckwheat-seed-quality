@@ -1,0 +1,28 @@
+# Minimal temporary config for exporting ppyoloe m-speed model
+# This config is a minimal wrapper to allow PaddleDetection's export_model.py to
+# construct the model architecture and export weights. It mirrors the infer_cfg.yml
+# preprocess and sets number of classes to 4.
+
+arch: PPYOLOE
+num_classes: 4
+# Input size and preprocessing (will be interpreted by reader/transform)
+image_shape: [3, 800, 800]
+# model-specific keys (placeholders) - using defaults from ppyoloe reader
+backbone:
+  name: ppyoloe_crn
+  depth: m
+neck:
+  name: ppyoloe_neck
+head:
+  name: ppyoloe_head
+  num_classes: 4
+
+# In export we don't need training hyperparams; these fields exist to satisfy parser
+TrainReader: {}
+EvalReader: {}
+
+infer:
+  image_shape: [3,800,800]
+
+# Keep other default settings
+
