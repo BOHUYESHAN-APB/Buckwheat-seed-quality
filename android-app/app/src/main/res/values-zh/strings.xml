@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">荞麦测质</string>
+    <string name="status_initializing">初始化中...</string>
+    <string name="mode_realtime">实时</string>
+    <string name="mode_single">单张</string>
+    <string name="mode">模式</string>
+    <string name="provider_accel">加速：CPU</string>
+    <string name="photo_manager">照片库</string>
+    <string name="settings">设置</string>
+    <string name="shutter">拍照</string>
+    <string name="emoji">表情</string>
+    <string name="accessibility_performance">性能</string>
+</resources>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- App theme tweaks used only for UI polish in camera screen -->
+    <style name="AppCameraCard" parent="Widget.MaterialComponents.CardView">
+        <item name="cardCornerRadius">24dp</item>
+        <item name="cardElevation">8dp</item>
+    </style>
+
+    <style name="CameraIconButton" parent="Widget.MaterialComponents.Button.Borderless">
+        <item name="android:padding">12dp</item>
+        <item name="android:minHeight">0dp</item>
+        <item name="android:minWidth">0dp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="iconTint">?attr/colorOnBackground</item>
+    </style>
+
+</resources>

@@ -1,3 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- App -->
+    <string name="app_name">Buckwheat</string>
+
+    <!-- Status / modes -->
+    <string name="status_initializing">Initializing...</string>
+    <string name="mode_realtime">Realtime</string>
+    <string name="mode_single">Single</string>
+    <string name="mode">Mode</string>
+
+    <!-- Provider -->
+    <string name="provider_accel">Acceleration: CPU</string>
+
+    <!-- Header actions -->
+    <string name="photo_manager">Photo Manager</string>
+    <string name="settings">Settings</string>
+
+    <!-- Bottom controls -->
+    <string name="shutter">Shutter</string>
+    <string name="emoji">Emoji</string>
+
+    <!-- Accessibility -->
+    <string name="accessibility_performance">Performance</string>
+</resources>
 <resources>
     <string name="app_name">Buckwheat Inspector</string>
     <string name="status_initializing">Initializing model…</string>

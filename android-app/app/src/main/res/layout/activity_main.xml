@@ -63,7 +63,7 @@
                     android:id="@+id/status_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Initializing..."
+                    android:text="@string/status_initializing"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
                     android:textColor="@color/onBackground" />
 
@@ -72,7 +72,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
-                    android:text="Realtime"
+                    android:text="@string/mode_realtime"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
                     android:textColor="@color/onBackgroundSecondary" />
 
@@ -83,14 +83,14 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:checkable="false"
-                    android:text="Acceleration: CPU"
+                    android:text="@string/provider_accel"
                     app:chipIcon="@drawable/ic_performance"
                     app:chipIconTint="@color/controlIcon"
                     app:chipStrokeColor="@color/controlIcon"
                     app:chipStrokeWidth="0.5dp" />
             </LinearLayout>
 
-            <com.google.android.material.button.MaterialButton
+                <com.google.android.material.button.MaterialButton
                 android:id="@+id/button_photo_manager"
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
                 android:layout_width="wrap_content"
@@ -100,13 +100,13 @@
                 android:minWidth="0dp"
                 android:padding="8dp"
                 android:text=""
-                android:contentDescription="Photo Manager"
+                android:contentDescription="@string/photo_manager"
                 app:backgroundTint="@android:color/transparent"
                 app:icon="@drawable/ic_folder"
                 app:iconGravity="textStart"
                 app:iconTint="@color/controlIcon" />
 
-            <com.google.android.material.button.MaterialButton
+                <com.google.android.material.button.MaterialButton
                 android:id="@+id/button_settings"
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton.Icon"
                 android:layout_width="wrap_content"
@@ -115,7 +115,7 @@
                 android:minWidth="0dp"
                 android:padding="8dp"
                 android:text=""
-                android:contentDescription="Settings"
+                android:contentDescription="@string/settings"
                 app:backgroundTint="@android:color/transparent"
                 app:icon="@drawable/ic_settings"
                 app:iconGravity="textStart"
@@ -136,7 +136,7 @@
     app:layout_constraintTop_toBottomOf="@id/header_card"
         app:layout_constraintEnd_toEndOf="parent">
 
-        <TextView
+                <TextView
             android:id="@+id/perf_fps"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -214,7 +214,7 @@
                 android:minHeight="0dp"
                 android:padding="12dp"
                 android:text=""
-                android:contentDescription="Mode"
+                android:contentDescription="@string/mode"
                 app:backgroundTint="@android:color/transparent"
                 app:icon="@drawable/ic_mode"
                 app:iconGravity="textStart"
@@ -229,9 +229,9 @@
                 android:id="@+id/button_shutter"
                 android:layout_width="72dp"
                 android:layout_height="72dp"
-                android:contentDescription="Shutter"
-                android:elevation="6dp"
-                app:backgroundTint="@color/shutterBg"
+                android:contentDescription="@string/shutter"
+                android:elevation="8dp"
+                android:background="@drawable/fab_shutter_bg"
                 app:srcCompat="@drawable/ic_shutter"
                 app:useCompatPadding="true" />
 
@@ -249,7 +249,7 @@
                 android:minHeight="0dp"
                 android:padding="12dp"
                 android:text=""
-                android:contentDescription="Emoji"
+                android:contentDescription="@string/emoji"
                 app:backgroundTint="@android:color/transparent"
                 app:icon="@drawable/ic_emoji"
                 app:iconGravity="textStart"
