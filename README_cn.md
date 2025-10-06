@@ -31,6 +31,24 @@
 
 ## 🚀 快速开始
 
+## 📱 Android 应用（移动端）
+
+- 状态：部分实现（实时推理已可用，单张拍照端到端保存与导出在少数场景下需修复）
+- Debug APK：`android-app/app/build/outputs/apk/debug/app-debug.apk`
+- 主要说明：实时检测（CameraX + ONNX Runtime）可用；单张拍照流程已集成 `CaptureRepository`，但仍需设备端回归测试以保证所有分辨率/旋转场景下均能生成原图、带框图与 JSON metadata。
+- 已知问题：在部分设备/分辨率下可能未生成 annotated 或 metadata，导出图像未统一去黑边处理。
+
+### 构建与安装（简要）
+
+```powershell
+cd android-app
+./gradlew assembleDebug
+adb install -r app/build/outputs/apk/debug/app-debug.apk
+```
+
+建议在提交测试前附上 APK 并在 PR 中说明“单张拍照需要设备端回归测试”的限制，以方便测试同学重点验证。
+
+
 ```powershell
 # 1) 安装 PaddlePaddle（推荐 GPU 版，需满足本地 CUDA 环境）
 python -m pip install paddlepaddle-gpu==3.1.0 -i https://mirror.baidu.com/pypi/simple

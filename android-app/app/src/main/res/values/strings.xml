@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- App -->
-    <string name="app_name">Buckwheat</string>
+    <string name="app_name">Buckwheat Inspector</string>
 
     <!-- Status / modes -->
-    <string name="status_initializing">Initializing...</string>
+    <string name="status_initializing">Initializing…</string>
+    <string name="status_inference_complete">Inference complete</string>
+    <string name="status_capture_not_ready">Capture not ready</string>
+    <string name="status_no_photo_loaded">No photo loaded</string>
     <string name="mode_realtime">Realtime</string>
     <string name="mode_single">Single</string>
     <string name="mode">Mode</string>
 
     <!-- Provider -->
-    <string name="provider_accel">Acceleration: CPU</string>
+    <string name="provider_accel">Acceleration: %1$s</string>
 
     <!-- Header actions -->
     <string name="photo_manager">Photo Manager</string>
@@ -22,10 +25,6 @@
 
     <!-- Accessibility -->
     <string name="accessibility_performance">Performance</string>
-</resources>
-<resources>
-    <string name="app_name">Buckwheat Inspector</string>
-    <string name="status_initializing">Initializing model…</string>
     <string name="status_ready">Ready</string>
     <string name="status_camera_error">Camera unavailable</string>
     <string name="status_permission_required">Camera permission required</string>
@@ -40,6 +39,7 @@
     <string name="provider_vulkan">Vulkan</string>
     <string name="provider_xnnpack">XNNPACK</string>
     <string name="provider_cpu">CPU</string>
+    <string name="provider_default_cpu">CPU</string>
     <string name="provider_hint">Changes apply to the next detection session. Use Auto for dynamic chipset detection.</string>
     <string name="settings_logging_title">Logging &amp; debugging</string>
     <string name="setting_verbose">Verbose inference logging</string>
@@ -68,4 +68,59 @@
     <string name="provider_dialog_plan">Planned order: %1$s</string>
     <string name="provider_dialog_active">Activated: %1$s</string>
     <string name="provider_saved_toast">Execution provider set to %1$s. Restart detection to apply.</string>
+
+    <!-- Toasts & helper text -->
+    <string name="toast_inference_complete">Inference complete</string>
+    <string name="toast_capture_not_ready">Capture not ready</string>
+    <string name="toast_no_input_dump">No ONNX input dump found</string>
+    <string name="toast_export_input_failed">Failed to export ONNX input: %1$s</string>
+    <string name="toast_cache_cleared">Cleared %1$d files (%2$.2f MB)</string>
+    <string name="toast_cache_failed">Failed to clear cache: %1$s</string>
+    <string name="toast_self_test_passed">Self-test: detections found</string>
+    <string name="toast_self_test_no_detections">Self-test: no detections</string>
+    <string name="toast_self_test_failed">Self-test failed: %1$s</string>
+    <string name="toast_self_test_exception">Self-test exception: %1$s</string>
+    <string name="toast_log_path_copied">Log path copied</string>
+    <string name="toast_logs_cleared">Logs cleared</string>
+    <string name="toast_no_logs">No logs available</string>
+    <string name="toast_no_log_share_app">No app available to share logs</string>
+    <string name="toast_capture_saved">Saved to gallery: BuckwheatDetections/%1$s</string>
+    <string name="toast_capture_save_failed">Save failed: %1$s</string>
+    <string name="toast_model_init_failed">Model init failed: %1$s</string>
+    <string name="toast_no_input_json_ready">No input JSON found yet. Run detection once and try again.</string>
+    <string name="toast_share_input_unavailable">Unable to prepare input JSON for sharing</string>
+    <string name="toast_no_input_share_app">No app available to share input JSON</string>
+    <string name="toast_logs_share_failed">Failed to prepare logs for sharing</string>
+    <string name="toast_no_browser_app">No browser app found</string>
+    <string name="toast_toggle_state">%1$s: %2$s</string>
+    <string name="toggle_state_on">On</string>
+    <string name="toggle_state_off">Off</string>
+    <string name="toast_confidence_threshold">Confidence threshold: %1$d%%</string>
+
+    <!-- Actions & descriptions -->
+    <string name="status_share_logs">Share logs</string>
+    <string name="share_logs_subject">Buckwheat logs</string>
+    <string name="share_input_subject">Latest ONNX input JSON</string>
+    <string name="share_input_chooser_title">Share latest input JSON</string>
+
+    <!-- About & licensing -->
+    <string name="settings_about_title">About &amp; support</string>
+    <string name="settings_contact_summary">Latest releases and guides live on the project site below.</string>
+    <string name="settings_contact_project_label">Project site</string>
+    <string name="settings_contact_project_url">https://github.com/bohuyeshan/Buckwheat-seed-quality</string>
+    <string name="settings_contact_button_visit">Open project site</string>
+    <string name="settings_contact_disclaimer">Icons based on Material Symbols (Apache-2.0). Buckwheat Inspector only uses system fonts.</string>
+    <string name="settings_third_party_title">Third-party components</string>
+    <string name="settings_third_party_summary">This app relies on open-source libraries vetted for commercial use. View the notices below.</string>
+    <string name="settings_view_licenses">View licenses &amp; notices</string>
+
+    <!-- Licenses screen -->
+    <string name="licenses_title">Open-source notices</string>
+    <string name="licenses_intro">Buckwheat Inspector bundles the following third-party components:</string>
+    <string name="licenses_items">• ONNX Runtime Mobile — MIT License
+• AndroidX CameraX — Apache License 2.0
+• Material Components for Android — Apache License 2.0
+• Kotlin Coroutines — Apache License 2.0
+• Material Symbols icons — Apache License 2.0</string>
+    <string name="licenses_footer">If you redistribute this app, include these notices. More details are available on the project site.</string>
 </resources>

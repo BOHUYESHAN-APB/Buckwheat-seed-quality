@@ -3,19 +3,9 @@
     android:width="24dp"
     android:height="24dp"
     android:viewportWidth="24"
-    android:viewportHeight="24">
-    <path android:fillColor="@color/white" android:pathData="M9,2L7.17,4H4a2,2 0 0,0-2,2v10a2,2 0 0,0 2,2h16a2,2 0 0,0 2-2V6a2,2 0 0,0-2-2h-3.17L15,2H9zm3,6a5,5 0 1,1 0,10 5,5 0 0,1 0-10z"/>
-</vector>
-<?xml version="1.0" encoding="utf-8"?>
-<vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:width="24dp"
-    android:height="24dp"
-    android:viewportWidth="24"
-    android:viewportHeight="24">
+    android:viewportHeight="24"
+    android:tint="@color/white">
     <path
-        android:fillColor="#FFFFFF"
-        android:pathData="M12,5a7,7 0,1 0,0 14a7,7 0,1 0,0 -14z"/>
-    <path
-        android:fillColor="#FF7043"
-        android:pathData="M12,8a4,4 0,1 1,0 8a4,4 0,1 1,0 -8z"/>
+        android:fillColor="@android:color/white"
+        android:pathData="M4,6c-1.11,0 -2,0.89 -2,2v8c0,1.11 0.89,2 2,2h16c1.11,0 2,-0.89 2,-2V8c0,-1.11 -0.89,-2 -2,-2h-3.17L15,4H9L7.17,6H4zM12,9.5c2.21,0 4,1.79 4,4s-1.79,4 -4,4 -4,-1.79 -4,-4 1.79,-4 4,-4zM12,11a2.5,2.5 0 1,0 0,5 2.5,2.5 0 0,0 0,-5z" />
 </vector>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<lint>
+    <!-- Ignore escaped path warnings for checked-in sample SDK paths -->
+    <issue id="PropertyEscape">
+        <ignore path="local.properties" />
+    </issue>
+</lint>

@@ -1,14 +1,125 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">荞麦测质</string>
-    <string name="status_initializing">初始化中...</string>
+
+    <!-- 状态与模式 -->
+    <string name="status_initializing">模型初始化中…</string>
+    <string name="status_ready">已就绪</string>
+    <string name="status_camera_error">相机不可用</string>
+    <string name="status_permission_required">需要相机权限</string>
+    <string name="status_inference_error">推理出错</string>
+    <string name="status_inference_complete">推理完成</string>
+    <string name="status_capture_not_ready">当前无法拍摄</string>
+    <string name="status_no_photo_loaded">照片加载失败</string>
     <string name="mode_realtime">实时</string>
     <string name="mode_single">单张</string>
     <string name="mode">模式</string>
-    <string name="provider_accel">加速：CPU</string>
+
+    <!-- 提示与标题 -->
+    <string name="provider_accel">加速：%1$s</string>
+    <string name="provider_default_cpu">CPU</string>
     <string name="photo_manager">照片库</string>
     <string name="settings">设置</string>
+
+    <!-- 底部控件 -->
     <string name="shutter">拍照</string>
     <string name="emoji">表情</string>
+
+    <!-- 无障碍 -->
     <string name="accessibility_performance">性能</string>
+
+    <!-- 设置页文案 -->
+    <string name="settings_title">高级设置</string>
+    <string name="settings_accel_title">硬件加速</string>
+    <string name="settings_accel_subtitle">选择首选的执行提供方优先级</string>
+    <string name="settings_device_unknown">设备：%1$s</string>
+    <string name="provider_auto">自动</string>
+    <string name="provider_nnapi">NNAPI</string>
+    <string name="provider_qnn">QNN</string>
+    <string name="provider_vulkan">Vulkan</string>
+    <string name="provider_xnnpack">XNNPACK</string>
+    <string name="provider_cpu">CPU</string>
+    <string name="provider_hint">更改将在下一次检测会话时生效。建议使用“自动”以动态适配芯片。</string>
+    <string name="settings_logging_title">日志与调试</string>
+    <string name="setting_verbose">启用详细推理日志</string>
+    <string name="setting_channel_swap">交换 RGB/BGR 通道</string>
+    <string name="setting_debug_mode">显示调试信息并导出中间结果</string>
+    <string name="settings_preprocess_title">预处理（均值/方差/缩放）</string>
+    <string name="setting_mean_hint">均值（如 0.0,0.0,0.0）</string>
+    <string name="setting_std_hint">方差（如 1.0,1.0,1.0）</string>
+    <string name="setting_scale_hint">缩放（如 1.0）</string>
+    <string name="settings_detection_title">检测设置</string>
+    <string name="settings_confidence_label">置信度阈值</string>
+    <string name="settings_confidence_hint">降低阈值可看到更多检测结果，但可能增加误检。</string>
+    <string name="settings_logs_title">日志工具</string>
+    <string name="setting_view_logs">查看日志</string>
+    <string name="setting_copy_logs">复制日志路径</string>
+    <string name="setting_share_logs">分享日志</string>
+    <string name="setting_clear_logs">清空日志</string>
+    <string name="setting_clear_cache">清理调试缓存（JSON 导出）</string>
+    <string name="settings_diagnostics_title">诊断</string>
+    <string name="setting_self_test">运行本地自检</string>
+    <string name="setting_share_input">分享最新输入 JSON</string>
+    <string name="provider_chip_template">加速 · %1$s</string>
+    <string name="provider_dialog_title">执行管线</string>
+    <string name="provider_dialog_device">设备族：%1$s</string>
+    <string name="provider_dialog_preference">首选项：%1$s</string>
+    <string name="provider_dialog_plan">计划顺序：%1$s</string>
+    <string name="provider_dialog_active">已启用：%1$s</string>
+    <string name="provider_saved_toast">执行提供方已切换至 %1$s。请重新开始检测以生效。</string>
+
+    <!-- 提示信息 -->
+    <string name="toast_inference_complete">推理完成</string>
+    <string name="toast_capture_not_ready">暂未准备好拍摄</string>
+    <string name="toast_no_input_dump">尚未生成 ONNX 输入缓存</string>
+    <string name="toast_export_input_failed">导出 ONNX 输入失败：%1$s</string>
+    <string name="toast_cache_cleared">已清除 %1$d 个文件（%2$.2f MB）</string>
+    <string name="toast_cache_failed">缓存清理失败：%1$s</string>
+    <string name="toast_self_test_passed">自检：检测结果正常</string>
+    <string name="toast_self_test_no_detections">自检：未检测到目标</string>
+    <string name="toast_self_test_failed">自检失败：%1$s</string>
+    <string name="toast_self_test_exception">自检异常：%1$s</string>
+    <string name="toast_log_path_copied">日志路径已复制</string>
+    <string name="toast_logs_cleared">日志已清空</string>
+    <string name="toast_no_logs">暂无日志</string>
+    <string name="toast_no_log_share_app">无可用于分享日志的应用</string>
+    <string name="toast_capture_saved">已保存至相册：BuckwheatDetections/%1$s</string>
+    <string name="toast_capture_save_failed">保存失败：%1$s</string>
+    <string name="toast_model_init_failed">模型初始化失败：%1$s</string>
+    <string name="toast_no_input_json_ready">暂未生成输入 JSON，请先执行一次检测。</string>
+    <string name="toast_share_input_unavailable">未能准备输入 JSON 的分享内容</string>
+    <string name="toast_no_input_share_app">没有可用于分享输入 JSON 的应用</string>
+    <string name="toast_logs_share_failed">未能准备可分享的日志文件</string>
+    <string name="toast_no_browser_app">未检测到浏览器应用</string>
+    <string name="toast_toggle_state">%1$s：%2$s</string>
+    <string name="toggle_state_on">开启</string>
+    <string name="toggle_state_off">关闭</string>
+    <string name="toast_confidence_threshold">置信度阈值：%1$d%%</string>
+
+    <!-- 共享与描述 -->
+    <string name="status_share_logs">分享日志</string>
+    <string name="share_logs_subject">Buckwheat 日志</string>
+    <string name="share_input_subject">最新 ONNX 输入 JSON</string>
+    <string name="share_input_chooser_title">分享最新输入 JSON</string>
+
+    <!-- 关于与许可 -->
+    <string name="settings_about_title">关于与支持</string>
+    <string name="settings_contact_summary">最新版本与帮助文档将更新在下方项目主页。</string>
+    <string name="settings_contact_project_label">项目主页</string>
+    <string name="settings_contact_project_url">https://github.com/bohuyeshan/Buckwheat-seed-quality</string>
+    <string name="settings_contact_button_visit">打开项目主页</string>
+    <string name="settings_contact_disclaimer">图标基于 Material Symbols（Apache-2.0），应用仅使用系统字体。</string>
+    <string name="settings_third_party_title">第三方组件</string>
+    <string name="settings_third_party_summary">应用仅依赖已审核可商用的开源库，可通过下方查看详细协议。</string>
+    <string name="settings_view_licenses">查看许可与声明</string>
+
+    <!-- 许可页面 -->
+    <string name="licenses_title">开源声明</string>
+    <string name="licenses_intro">荞麦测质包含以下第三方组件：</string>
+    <string name="licenses_items">• ONNX Runtime Mobile — MIT 许可
+• AndroidX CameraX — Apache 2.0 许可
+• Material Components for Android — Apache 2.0 许可
+• Kotlin 协程 — Apache 2.0 许可
+• Material Symbols 图标 — Apache 2.0 许可</string>
+    <string name="licenses_footer">若需重新分发本应用，请一并附上本声明。详情请参阅项目主页。</string>
 </resources>

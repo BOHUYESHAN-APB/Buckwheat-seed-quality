@@ -24,7 +24,7 @@
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="Back"
             android:src="@drawable/ic_back"
-            android:tint="@color/onTopBar" />
+            app:tint="@color/onTopBar" />
 
         <TextView
             android:id="@+id/title"
@@ -44,7 +44,7 @@
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="Refresh"
             android:src="@drawable/ic_refresh"
-            android:tint="@color/onTopBar" />
+            app:tint="@color/onTopBar" />
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView

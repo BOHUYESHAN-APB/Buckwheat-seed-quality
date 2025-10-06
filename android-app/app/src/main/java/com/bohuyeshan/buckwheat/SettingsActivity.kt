@@ -56,9 +56,11 @@ class SettingsActivity : AppCompatActivity() {
         verboseSwitch = findViewById(R.id.switch_verbose)
         channelSwapSwitch = findViewById(R.id.switch_channel_swap)
         debugModeSwitch = findViewById(R.id.switch_debug_mode)
-        val shareBtn: Button = findViewById(R.id.share_logs)
-        val shareInputBtn: Button = findViewById(R.id.btn_share_input_json)
-        val clearCacheBtn: Button = findViewById(R.id.btn_clear_cache)
+    val shareBtn: Button = findViewById(R.id.share_logs)
+    val shareInputBtn: Button = findViewById(R.id.btn_share_input_json)
+    val clearCacheBtn: Button = findViewById(R.id.btn_clear_cache)
+    val visitProjectBtn: Button = findViewById(R.id.btn_visit_project)
+        val viewLicensesBtn: Button = findViewById(R.id.btn_view_licenses)
 
         Logger.init(this)
 
@@ -88,7 +90,7 @@ class SettingsActivity : AppCompatActivity() {
             val path = Logger.getLogFilePath() ?: ""
             val cm = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
             cm.setPrimaryClip(ClipData.newPlainText("log-path", path))
-            Toast.makeText(this, "Log path copied", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.toast_log_path_copied), Toast.LENGTH_SHORT).show()
         }
 
         clearCacheBtn.setOnClickListener {
@@ -113,14 +115,15 @@ class SettingsActivity : AppCompatActivity() {
                     withContext(Dispatchers.Main) {
                         Toast.makeText(
                             this@SettingsActivity,
-                            "Cleared $deletedCount files (${String.format("%.2f", freedMB)} MB)",
+                            getString(R.string.toast_cache_cleared, deletedCount, freedMB),
                             Toast.LENGTH_LONG
                         ).show()
                     }
                     Logger.i("SettingsActivity", "Cache cleared: $deletedCount files, $freedMB MB")
                 } catch (ex: Exception) {
+                    val message = ex.message ?: getString(R.string.status_inference_error)
                     withContext(Dispatchers.Main) {
-                        Toast.makeText(this@SettingsActivity, "Failed to clear cache: ${ex.message}", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@SettingsActivity, getString(R.string.toast_cache_failed, message), Toast.LENGTH_SHORT).show()
                     }
                     Logger.e("SettingsActivity", "Cache clear failed", ex)
                 }
@@ -138,20 +141,28 @@ class SettingsActivity : AppCompatActivity() {
                     val engine = com.bohuyeshan.buckwheat.inference.InferenceEngine(this@SettingsActivity)
                     val initRes = engine.initialize()
                     if (initRes.isFailure) {
-                        Toast.makeText(this@SettingsActivity, "Model init failed: ${initRes.exceptionOrNull()?.message}", Toast.LENGTH_LONG).show()
+                        val message = initRes.exceptionOrNull()?.message ?: getString(R.string.status_inference_error)
+                        Toast.makeText(this@SettingsActivity, getString(R.string.toast_model_init_failed, message), Toast.LENGTH_LONG).show()
                         return@launch
                     }
                     val res = engine.runSelfTest()
                     if (res.isSuccess) {
                         val ok = res.getOrNull() ?: false
-                        Toast.makeText(this@SettingsActivity, if (ok) "Self-test: detections found" else "Self-test: no detections", Toast.LENGTH_LONG).show()
+                        val toastText = if (ok) {
+                            getString(R.string.toast_self_test_passed)
+                        } else {
+                            getString(R.string.toast_self_test_no_detections)
+                        }
+                        Toast.makeText(this@SettingsActivity, toastText, Toast.LENGTH_LONG).show()
                         Logger.i("SettingsActivity", "Self-test result: $ok")
                     } else {
-                        Toast.makeText(this@SettingsActivity, "Self-test failed: ${res.exceptionOrNull()?.message}", Toast.LENGTH_LONG).show()
+                        val message = res.exceptionOrNull()?.message ?: getString(R.string.status_inference_error)
+                        Toast.makeText(this@SettingsActivity, getString(R.string.toast_self_test_failed, message), Toast.LENGTH_LONG).show()
                         Logger.e("SettingsActivity", "Self-test error", res.exceptionOrNull())
                     }
                 } catch (ex: Exception) {
-                    Toast.makeText(this@SettingsActivity, "Self-test exception: ${ex.message}", Toast.LENGTH_LONG).show()
+                    val message = ex.message ?: getString(R.string.status_inference_error)
+                    Toast.makeText(this@SettingsActivity, getString(R.string.toast_self_test_exception, message), Toast.LENGTH_LONG).show()
                     Logger.e("SettingsActivity", "Self-test exception", ex)
                 }
             }
@@ -178,7 +189,7 @@ class SettingsActivity : AppCompatActivity() {
                 }
 
                 if (latestFile == null) {
-                    Toast.makeText(this@SettingsActivity, "No input JSON found yet. Run detection once and try again.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@SettingsActivity, getString(R.string.toast_no_input_json_ready), Toast.LENGTH_SHORT).show()
                     return@launch
                 }
 
@@ -194,14 +205,14 @@ class SettingsActivity : AppCompatActivity() {
                 }
 
                 if (shareUri == null) {
-                    Toast.makeText(this@SettingsActivity, "Couldn't prepare input JSON for sharing", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@SettingsActivity, getString(R.string.toast_share_input_unavailable), Toast.LENGTH_SHORT).show()
                     return@launch
                 }
 
                 val shareIntent = Intent(Intent.ACTION_SEND).apply {
                     type = "application/json"
                     putExtra(Intent.EXTRA_STREAM, shareUri)
-                    putExtra(Intent.EXTRA_SUBJECT, "Latest ONNX input JSON")
+                    putExtra(Intent.EXTRA_SUBJECT, getString(R.string.share_input_subject))
                     addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
                     clipData = ClipData.newUri(contentResolver, "onnx_input", shareUri)
                 }
@@ -212,35 +223,38 @@ class SettingsActivity : AppCompatActivity() {
                         grantUriPermission(resolveInfo.activityInfo.packageName, shareUri, Intent.FLAG_GRANT_READ_URI_PERMISSION)
                     }
                     Logger.i("SettingsActivity", "Launching input share chooser with ${targets?.size ?: 0} targets")
-                    startActivity(Intent.createChooser(shareIntent, "Share latest input JSON"))
+                    startActivity(Intent.createChooser(shareIntent, getString(R.string.share_input_chooser_title)))
                 } catch (ex: Exception) {
                     Logger.e("SettingsActivity", "Failed to launch input share chooser", ex)
-                    Toast.makeText(this@SettingsActivity, "No app available to share input JSON", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@SettingsActivity, getString(R.string.toast_no_input_share_app), Toast.LENGTH_SHORT).show()
                 }
             }
         }
 
         clearBtn.setOnClickListener {
             Logger.clear()
-            Toast.makeText(this, "Logs cleared", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.toast_logs_cleared), Toast.LENGTH_SHORT).show()
         }
 
         verboseSwitch.isChecked = prefs.getBoolean("pref_verbose_logging", false)
         verboseSwitch.setOnCheckedChangeListener { _, isChecked ->
             prefs.edit().putBoolean("pref_verbose_logging", isChecked).apply()
-            Toast.makeText(this, "Verbose logging: $isChecked", Toast.LENGTH_SHORT).show()
+            val stateLabel = getString(if (isChecked) R.string.toggle_state_on else R.string.toggle_state_off)
+            Toast.makeText(this, getString(R.string.toast_toggle_state, getString(R.string.setting_verbose), stateLabel), Toast.LENGTH_SHORT).show()
         }
 
         channelSwapSwitch.isChecked = prefs.getBoolean("pref_channel_swap", false)
         channelSwapSwitch.setOnCheckedChangeListener { _, isChecked ->
             prefs.edit().putBoolean("pref_channel_swap", isChecked).apply()
-            Toast.makeText(this, "Channel swap: $isChecked", Toast.LENGTH_SHORT).show()
+            val stateLabel = getString(if (isChecked) R.string.toggle_state_on else R.string.toggle_state_off)
+            Toast.makeText(this, getString(R.string.toast_toggle_state, getString(R.string.setting_channel_swap), stateLabel), Toast.LENGTH_SHORT).show()
         }
 
         debugModeSwitch.isChecked = prefs.getBoolean("pref_debug_mode", false)
         debugModeSwitch.setOnCheckedChangeListener { _, isChecked ->
             prefs.edit().putBoolean("pref_debug_mode", isChecked).apply()
-            Toast.makeText(this, "Debug mode: $isChecked", Toast.LENGTH_SHORT).show()
+            val stateLabel = getString(if (isChecked) R.string.toggle_state_on else R.string.toggle_state_off)
+            Toast.makeText(this, getString(R.string.toast_toggle_state, getString(R.string.setting_debug_mode), stateLabel), Toast.LENGTH_SHORT).show()
         }
 
         // Confidence threshold seekbar (5% - 95%, stored as 0.05 - 0.95)
@@ -264,7 +278,7 @@ class SettingsActivity : AppCompatActivity() {
                 val progress = seekBar?.progress ?: 20
                 val confidence = 0.05f + (progress / 90f) * 0.90f
                 prefs.edit().putFloat("pref_confidence_threshold", confidence).apply()
-                Toast.makeText(this@SettingsActivity, "Confidence threshold: ${(confidence * 100).toInt()}%", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@SettingsActivity, getString(R.string.toast_confidence_threshold, (confidence * 100).toInt()), Toast.LENGTH_SHORT).show()
             }
         })
 
@@ -300,6 +314,21 @@ class SettingsActivity : AppCompatActivity() {
         etMean?.setOnFocusChangeListener { _, has -> if (!has) savePreproc("pref_mean", etMean?.text?.toString() ?: "") }
         etStd?.setOnFocusChangeListener { _, has -> if (!has) savePreproc("pref_std", etStd?.text?.toString() ?: "") }
         etScale?.setOnFocusChangeListener { _, has -> if (!has) savePreproc("pref_scale", etScale?.text?.toString() ?: "") }
+
+        visitProjectBtn.setOnClickListener {
+            val projectUrl = getString(R.string.settings_contact_project_url)
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(projectUrl))
+            try {
+                startActivity(intent)
+            } catch (ex: Exception) {
+                Toast.makeText(this, getString(R.string.toast_no_browser_app), Toast.LENGTH_SHORT).show()
+                Logger.e("SettingsActivity", "No browser available", ex)
+            }
+        }
+
+        viewLicensesBtn.setOnClickListener {
+            LicensesActivity.open(this)
+        }
     }
 
     // logs now accessed via LogActivity
@@ -313,7 +342,7 @@ class SettingsActivity : AppCompatActivity() {
     private fun shareLogsViaFileProvider() {
         val file: File? = Logger.getLogFile()
         if (file == null || !file.exists() || file.length() == 0L) {
-            Toast.makeText(this, "No logs available", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.toast_no_logs), Toast.LENGTH_SHORT).show()
             return
         }
 
@@ -328,7 +357,7 @@ class SettingsActivity : AppCompatActivity() {
             val intent = Intent(Intent.ACTION_SEND).apply {
                 type = "text/plain"
                 putExtra(Intent.EXTRA_STREAM, uri)
-                putExtra(Intent.EXTRA_SUBJECT, "Buckwheat logs")
+                putExtra(Intent.EXTRA_SUBJECT, getString(R.string.share_logs_subject))
                 // Some OEM launchers require ClipData to be present to accept stream URIs
                 clipData = ClipData.newUri(contentResolver, "Log", uri)
                 addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
@@ -339,7 +368,7 @@ class SettingsActivity : AppCompatActivity() {
             if (resInfoList.isNullOrEmpty()) {
                 Logger.i("SettingsActivity", "No share targets for FileProvider URI, will fallback to Downloads export")
             } else {
-                val chooser = Intent.createChooser(intent, "Share logs")
+                val chooser = Intent.createChooser(intent, getString(R.string.status_share_logs))
                 for (resolveInfo in resInfoList) {
                     val packageName = resolveInfo.activityInfo.packageName
                     grantUriPermission(packageName, uri, Intent.FLAG_GRANT_READ_URI_PERMISSION)
@@ -370,19 +399,19 @@ class SettingsActivity : AppCompatActivity() {
             val intent2 = Intent(Intent.ACTION_SEND).apply {
                 type = "text/plain"
                 putExtra(Intent.EXTRA_STREAM, exportedUri)
-                putExtra(Intent.EXTRA_SUBJECT, "Buckwheat logs")
+                putExtra(Intent.EXTRA_SUBJECT, getString(R.string.share_logs_subject))
                 addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
             }
             try {
                 Logger.i("SettingsActivity", "Launching share chooser for exported Downloads URI")
-                startActivity(Intent.createChooser(intent2, "Share logs"))
+                startActivity(Intent.createChooser(intent2, getString(R.string.status_share_logs)))
                 Logger.i("SettingsActivity", "Share chooser launched for exported URI")
             } catch (e: Exception) {
-                Toast.makeText(this, "No app available to share logs", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.toast_no_log_share_app), Toast.LENGTH_SHORT).show()
                 Logger.e("SettingsActivity", "No app available to share logs for exported URI", e)
             }
         } else {
-            Toast.makeText(this, "Failed to prepare logs for sharing", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.toast_logs_share_failed), Toast.LENGTH_SHORT).show()
             Logger.e("SettingsActivity", "Failed to prepare logs for sharing: exportedUri is null")
         }
     }

@@ -27,8 +27,11 @@ import com.bohuyeshan.buckwheat.camera.CameraAnalyzer
 import com.bohuyeshan.buckwheat.databinding.ActivityMainBinding
 import com.bohuyeshan.buckwheat.inference.InferenceEngine
 import com.bohuyeshan.buckwheat.inference.InferenceResult
+import com.bohuyeshan.buckwheat.storage.CaptureRecord
+import com.bohuyeshan.buckwheat.storage.CaptureRepository
 import com.bohuyeshan.buckwheat.util.Logger
 import com.bohuyeshan.buckwheat.util.PerformanceMonitor
+import com.bohuyeshan.buckwheat.util.enablePressScale
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 import kotlinx.coroutines.launch
@@ -43,6 +46,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var cameraExecutor: ExecutorService
     private lateinit var inferenceEngine: InferenceEngine
     private lateinit var performanceMonitor: PerformanceMonitor
+    private lateinit var captureRepository: CaptureRepository
     private var imageAnalyzer: ImageAnalysis? = null
     private var lastErrorShownAt: Long = 0L
     private var errorDialogVisible: Boolean = false
@@ -105,10 +109,11 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-    binding.detectionOverlay.configureInputSize(640, 640)
+        binding.detectionOverlay.configureInputSize(640, 640)
         cameraExecutor = Executors.newSingleThreadExecutor()
         inferenceEngine = InferenceEngine(this)
         performanceMonitor = PerformanceMonitor(this)
+        captureRepository = CaptureRepository(this)
 
         lifecycleScope.launch {
             binding.statusText.setText(R.string.status_initializing)
