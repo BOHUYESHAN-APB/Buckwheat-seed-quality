@@ -4,14 +4,7 @@ PaddleDetection_export_package*
 ppyoloe_models_package*
 package/
 # keep most inference_results out of git, but allow the showcase images (README)
-inference_results/
-!inference_results/showcase/
-!inference_results/showcase/*
-!inference_results/archive/
-!inference_results/archive/ppdet_official/
-!inference_results/archive/ppdet_official/*
-!inference_results/archive/ppyoloe_plus_postprocess_fix/
-!inference_results/archive/ppyoloe_plus_postprocess_fix/*
+
 *.tar.gz
 dataset/
 output/
@@ -29,3 +22,6 @@ inference_model/# Ignore large model artifacts
 *.bak
 /exports/
 /inference_from_output/
+*.zip
+*.tar
+*.tgz
