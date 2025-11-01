@@ -25,3 +25,4 @@ inference_model/# Ignore large model artifacts
 *.zip
 *.tar
 *.tgz
+/paper/
