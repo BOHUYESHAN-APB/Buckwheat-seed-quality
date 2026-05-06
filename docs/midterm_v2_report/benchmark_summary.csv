@@ -1,0 +1,37 @@
+model_label,metric,value
+buckwheat_v2_onnx_cpu,label,buckwheat_v2_onnx_cpu
+buckwheat_v2_onnx_cpu,backend,buckwheat_v2_onnx_cpu
+buckwheat_v2_onnx_cpu,imgsz,960
+buckwheat_v2_onnx_cpu,image_count,20
+buckwheat_v2_onnx_cpu,image_latency_mean_ms,561.2338565800201
+buckwheat_v2_onnx_cpu,image_latency_median_ms,555.6428799999594
+buckwheat_v2_onnx_cpu,image_latency_p90_ms,596.521574380031
+buckwheat_v2_onnx_cpu,image_latency_min_ms,539.0702648000115
+buckwheat_v2_onnx_cpu,image_latency_max_ms,617.8122613999221
+buckwheat_v2_onnx_cpu,image_detection_count_mean,34.05
+buckwheat_v2_onnx_cpu,video_frames,36
+buckwheat_v2_onnx_cpu,video_latency_mean_ms,573.8204160277292
+buckwheat_v2_onnx_cpu,video_fps_estimate,1.7427055086720307
+buckwheat_v2_ncnn_cpu,label,buckwheat_v2_ncnn_cpu
+buckwheat_v2_ncnn_cpu,backend,ncnn
+buckwheat_v2_ncnn_cpu,imgsz,960
+buckwheat_v2_ncnn_cpu,image_count,20
+buckwheat_v2_ncnn_cpu,image_latency_mean_ms,307.00252180999087
+buckwheat_v2_ncnn_cpu,image_latency_median_ms,304.8023852001279
+buckwheat_v2_ncnn_cpu,image_latency_p90_ms,311.3732854601767
+buckwheat_v2_ncnn_cpu,image_latency_min_ms,302.24734179973893
+buckwheat_v2_ncnn_cpu,image_latency_max_ms,333.61237479984993
+buckwheat_v2_ncnn_cpu,image_detection_count_mean,1.4
+buckwheat_v2_ncnn_cpu,video_frames,36
+buckwheat_v2_ncnn_cpu,video_latency_mean_ms,310.45011275015594
+buckwheat_v2_ncnn_cpu,video_fps_estimate,3.2211294469871237
+buckwheat_v2_ncnn_cpu,use_vulkan,False
+yolo11_v1_pi_model_only_onnx,model_path,/home/bhys/cnn-bench/models/best.onnx
+yolo11_v1_pi_model_only_onnx,input_shape,"[1, 3, 640, 640]"
+yolo11_v1_pi_model_only_onnx,latency_ms_mean,241.45
+yolo11_v1_pi_model_only_onnx,throughput_ips,4.14
+comparisons,ncnn_vs_onnx_image_speedup_x,1.828108294587161
+comparisons,ncnn_vs_onnx_video_speedup_x,1.8483498393493205
+comparisons,onnx_vs_yolo11_image_latency_ratio_x,2.324430965334521
+comparisons,ncnn_vs_yolo11_image_latency_ratio_x,1.2714952238972494
+comparisons,detection_count_alignment,"{""onnx_image_detection_count_mean"": 34.05, ""ncnn_image_detection_count_mean"": 1.4, ""status"": ""mismatch""}"

@@ -1,0 +1,12 @@
+{
+  "venv_probe": {
+    "code": 0,
+    "stdout": "torch ERR ModuleNotFoundError(\"No module named 'torch'\")\r\nultralytics ERR ModuleNotFoundError(\"No module named 'ultralytics'\")\r\n\u001b[0;93m2026-05-05 16:38:46.457092632 [W:onnxruntime:Default, device_discovery.cc:283 GetGpuDevices] Failed to detect devices under \"/sys/class/drm/card1\": device_discovery.cc:93 ReadFileContents Failed to open file: \"/sys/class/drm/card1/device/vendor\"\u001b[m\r\n\u001b[0;93m2026-05-05 16:38:46.457168985 [W:onnxruntime:Default, device_discovery.cc:283 GetGpuDevices] Failed to detect devices under \"/sys/class/drm/card0\": device_discovery.cc:93 ReadFileContents Failed to open file: \"/sys/class/drm/card0/device/vendor\"\u001b[m\r\nonnxruntime OK 1.25.1\r\ncv2 OK 4.13.0\r\nnumpy OK 2.4.4\r\n",
+    "stderr": ""
+  },
+  "venv_pip_list": {
+    "code": 0,
+    "stdout": "Package                Version\r\n---------------------- ---------\r\nflatbuffers            25.12.19\r\nnumpy                  2.4.4\r\nonnxruntime            1.25.1\r\nopencv-python-headless 4.13.0.92\r\npackaging              26.2\r\npip                    26.1.1\r\nprotobuf               7.34.1\r\nsetuptools             82.0.1\r\nwheel                  0.47.0\r\n",
+    "stderr": ""
+  }
+}

@@ -1,0 +1,103 @@
+# ColonySeedNet-v1 Configuration
+# Huawei Ascend / MindSpore
+
+framework: MindSpore
+device_target: Ascend
+
+# Data configuration (COCO style)
+data:
+  dataset_dir: /cache/dataset/data_extracted
+  train_set: train
+  val_set: val
+  image_dir: images
+  annotation_dir: annotations
+  num_classes: 4
+  class_names:
+    - seeda
+    - seedb
+    - seedc
+    - seedd
+
+# Model configuration
+model:
+  name: colony_seednet_v1
+  base_detector: yolov8
+  input_size: [384, 384]
+  backbone: cspdarknet
+  neck: pan_fpn
+  head: decoupled
+
+# Training hyperparameters
+training:
+  epochs: 300
+  batch_size: 8
+  num_workers: 8
+  base_lr: 0.0005
+  weight_decay: 0.0005
+  momentum: 0.937
+  warmup_epochs: 5
+  warmup_bias_lr: 0.1
+  lr_schedule:
+    type: warmup_cosine
+    min_lr_ratio: 0.01
+
+# Curriculum augmentation settings
+curriculum_augmentation:
+  enabled: true
+  stages:
+    - name: basic
+      epoch_range: [0, 50]
+      augmentations:
+        - random_flip
+        - random_scale
+    - name: intermediate
+      epoch_range: [50, 150]
+      augmentations:
+        - random_flip
+        - random_scale
+        - mosaic
+        - color_jitter
+      mosaic_prob: 1.0
+      color_jitter:
+        brightness: 0.3
+        contrast: 0.3
+        saturation: 0.3
+    - name: advanced
+      epoch_range: [150, 300]
+      augmentations:
+        - random_flip
+        - random_scale
+        - mosaic
+        - mixup
+        - color_jitter
+        - random_rotation
+      mosaic_prob: 1.0
+      mixup_prob: 0.1
+      rotation_range: 15
+
+# Loss configuration
+loss:
+  classification: focal
+  focal_gamma: 2.5
+  focal_alpha: 0.25
+  regression: ciou
+  dfl:
+    enabled: true
+    reg_max: 16
+  class_weighting: inverse_frequency
+
+# Small-object inference settings
+small_object_inference:
+  tile_inference: true
+  tile_size: [192, 192]
+  tile_overlap: 32
+  nms_merge: true
+  nms_iou_threshold: 0.65
+  conf_threshold: 0.25
+
+# Output paths
+output:
+  checkpoint_dir: /cache/output/model
+  log_dir: /cache/output/logs
+  save_best: true
+  save_last: true
