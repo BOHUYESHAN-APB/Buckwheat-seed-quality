@@ -26,3 +26,12 @@ inference_model/# Ignore large model artifacts
 *.tar
 *.tgz
 /paper/
+
+# Do not publish internal review/manuscript materials
+/docs/midterm_overall/
+
+# Do not publish local 3D source/model assets
+/buckwheat-3d/
+
+# Do not publish local model release bundle to GitHub
+/release_publish/modelscope_model/
